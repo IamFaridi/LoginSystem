@@ -54,7 +54,7 @@
         }
         if ($usernotexist) {
             echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                      <strong>Failed!</strong> User doesn't exist. Create account first.
+                      <strong>Failed!</strong> User doesn't exist. <a href='signup.php'>Create account first</a>.
                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                         <span aria-hidden='true'>&times;</span>
                      </button>
