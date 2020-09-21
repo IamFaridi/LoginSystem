@@ -18,7 +18,8 @@
         } else {
 
         if (($password==$cpassword)) {
-        $sql="INSERT INTO `user` (`username`, `password`, `time`) VALUES ('$username', '$password', current_timestamp());";
+          $hash= password_hash($password,PASSWORD_DEFAULT);
+        $sql="INSERT INTO `user` (`username`, `password`, `time`) VALUES ('$username', '$hash', current_timestamp());";
         $result=mysqli_query($conn,$sql);
         if ($result) {
             $inserted=true;

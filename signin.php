@@ -4,26 +4,37 @@
     
     if ($_SERVER['REQUEST_METHOD']=="POST") {
         
-        include 'components/_dbconnect.php';
-        $username=$_POST['username'];
-        $password=$_POST['password'];
-        
-        $sql="SELECT * FROM `user` WHERE `username` LIKE '$username' AND `password` LIKE '$password'";
-        $result=mysqli_query($conn,$sql);
-        $num=mysqli_num_rows($result);
-        if ($num==1) {
-            $userexist=true;
-            session_start();
-            $_SESSION['loggedin']=true;
-            $_SESSION['username']=$username;
-            header("location: welcome.php");
-        } else {
 
-            $usernotexist=true;
-        }
+
+                        include 'components/_dbconnect.php';
+                        $username=$_POST['username'];
+                        $password=$_POST['password'];
+                        
+                        $sql="SELECT * FROM `user` WHERE `username` LIKE '$username'";
+                        $result=mysqli_query($conn,$sql);
+                        $num=mysqli_num_rows($result);
+                        if ($num>0) {
+                            while ($row=mysqli_fetch_assoc($result)) {
+                                if(password_verify($password,$row['password'])){
+                                    $userexist=true;
+                                    session_start();
+                                    $_SESSION['loggedin']=true;
+                                    $_SESSION['username']=$username;
+                                    header("location: welcome.php");
+
+                                } else {
+                                    
+                                    $usernotexist=true;
+                                }
+                            }
+                        } 
+                        else {
+
+                            $usernotexist=true;
+                        }
         
       
-    }
+}
 
 ?>
 
